@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore';
 
-const API_URL = 'https://api.example.com'; // Replace with actual API URL
+const API_URL = process.env.API_URL!; // Replace with actual API URL
 
 const client = axios.create({
   baseURL: API_URL,
