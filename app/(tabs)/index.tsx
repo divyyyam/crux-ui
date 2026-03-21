@@ -1,98 +1,64 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import { useAuthStore } from '../../src/store/authStore';
+import { LayoutDashboard, TrendingUp, Users, Settings, LogOut, Bell } from 'lucide-react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function DashboardScreen() {
+  const logout = useAuthStore((state) => state.logout);
 
-export default function HomeScreen() {
+  const stats = [
+    { label: 'Total Sales', value: '$12,450', icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-100' },
+    { label: 'Active Users', value: '1,240', icon: Users, color: 'text-blue-600', bg: 'bg-blue-100' },
+  ];
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <View className="px-6 py-4 flex-row justify-between items-center bg-white border-b border-gray-100">
+        <View>
+          <Text className="text-gray-500 text-sm">Welcome back,</Text>
+          <Text className="text-xl font-bold text-gray-900">Admin Dashboard</Text>
+        </View>
+        <TouchableOpacity className="p-2 bg-gray-100 rounded-full">
+          <Bell size={20} color="#374151" />
+        </TouchableOpacity>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <ScrollView className="px-6 pt-6">
+        <View className="flex-row justify-between space-x-4 mb-6">
+          {stats.map((stat, index) => (
+            <View key={index} className="flex-1 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+              <View className={`${stat.bg} w-10 h-10 rounded-xl items-center justify-center mb-3`}>
+                <stat.icon size={20} className={stat.color} />
+              </View>
+              <Text className="text-gray-500 text-xs mb-1">{stat.label}</Text>
+              <Text className="text-lg font-bold text-gray-900">{stat.value}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
+          <Text className="text-lg font-bold text-gray-900 mb-4">Recent Activity</Text>
+          {[1, 2, 3].map((item) => (
+            <View key={item} className="flex-row items-center py-3 border-b border-gray-50 last:border-0">
+              <View className="w-10 h-10 bg-gray-100 rounded-full items-center justify-center">
+                <LayoutDashboard size={18} color="#6b7280" />
+              </View>
+              <View className="ml-3 flex-1">
+                <Text className="text-sm font-medium text-gray-900">System Update {item}</Text>
+                <Text className="text-xs text-gray-500">2 hours ago</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <TouchableOpacity 
+          onPress={logout}
+          className="bg-red-50 p-4 rounded-xl flex-row items-center justify-center mb-10"
+        >
+          <LogOut size={20} color="#dc2626" />
+          <Text className="ml-2 text-red-600 font-bold">Sign Out</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
