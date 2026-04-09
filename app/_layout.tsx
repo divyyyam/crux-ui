@@ -8,31 +8,52 @@ import '../global.css';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuthStore } from '../src/store/authStore';
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const { accessToken, initialize } = useAuthStore();
-  const segments = useSegments();
-  const router = useRouter();
+  import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
+  import * as SplashScreen from 'expo-splash-screen';
 
-  useEffect(() => {
-    initialize();
-  }, []);
+  export default function RootLayout() {
+    const colorScheme = useColorScheme();
+    const { accessToken, initialize } = useAuthStore();
+    const segments = useSegments();
+    const router = useRouter();
 
-  useEffect(() => {
-    const inAuthGroup = segments[0] === '(auth)';
-    
-    if (!accessToken && !inAuthGroup) {
-      // Redirect to login if not authenticated and not in auth screens
-      router.replace('/login');
-    } else if (accessToken && inAuthGroup) {
-      // Redirect to dashboard if authenticated and in auth screens
-      router.replace('/(tabs)');
+    const [fontsLoaded] = useFonts({
+      Inter_400Regular,
+      Inter_500Medium,
+      Inter_600SemiBold,
+    });
+
+    useEffect(() => {
+      initialize();
+    }, []);
+
+    useEffect(() => {
+      if (fontsLoaded) {
+        SplashScreen.hideAsync();
+      }
+    }, [fontsLoaded]);
+
+    if (!fontsLoaded) {
+      return null;
     }
-  }, [accessToken, segments]);
+
+    // Auth redirects Disabled for MVP UI construction
+    /*
+    useEffect(() => {
+      const inAuthGroup = segments[0] === '(auth)';
+      
+      if (!accessToken && !inAuthGroup) {
+        router.replace('/login');
+      } else if (accessToken && inAuthGroup) {
+        router.replace('/(tabs)');
+      }
+    }, [accessToken, segments]);
+    */
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
       </Stack>
