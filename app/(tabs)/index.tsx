@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme } from 'react-native';
 import { useAuthStore } from '../../src/store/authStore';
+import { Image } from 'expo-image';
 
 export default function DashboardScreen() {
   const { height } = Dimensions.get('window');
@@ -21,28 +22,42 @@ export default function DashboardScreen() {
           <View className={`w-8 h-8 rounded-full ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`} />
         </View>
 
-        {/* Bike Placeholder Image */}
+        {/* Bike Showcase */}
         <View style={{ height: size }} className="w-full relative mb-8 justify-center items-center">
-          {/* We will add an image here later as requested by the user */}
-          <View className={`absolute inset-0 rounded-3xl opacity-10 ${isDark ? 'bg-neon' : 'bg-gray-300'}`} />
+          <View className={`absolute inset-0 rounded-3xl opacity-5 mt-4 mb-4 ${isDark ? 'bg-[#39FF14]' : 'bg-gray-300'}`} />
+          <Image 
+            source={require('../../assets/images/pngtree-electric-mountain-bike-with-fat-tires-and-modern-frame-png-image_20853368.png')} 
+            style={{ width: '100%', height: '100%' }}
+            contentFit="contain"
+            transition={500}
+          />
         </View>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - Row 1 */}
         <View className="flex-row justify-between mb-4">
-          <View className={`flex-1 p-4 rounded-2xl mr-2 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-            <Text className={`text-sm font-inter mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Temperature</Text>
-            <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>32</Text>
+          <View className={`flex-1 p-4 rounded-3xl mr-2 ${isDark ? 'bg-[#111] border border-[#222]' : 'bg-white border border-gray-100 shadow-sm'}`}>
+            <Text className={`text-xs font-inter-medium mb-2 uppercase ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Temp</Text>
+            <Text className={`text-2xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>32°C</Text>
           </View>
-          <View className={`flex-1 p-4 rounded-2xl ml-2 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-            <Text className={`text-sm font-inter mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>SOC</Text>
-            <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>10</Text>
+          <View className={`flex-1 p-4 rounded-3xl mx-2 ${isDark ? 'bg-[#111] border border-[#222]' : 'bg-white border border-gray-100 shadow-sm'}`}>
+            <Text className={`text-xs font-inter-medium mb-2 uppercase ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>SOC</Text>
+            <Text className={`text-2xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>85%</Text>
+          </View>
+          <View className={`flex-1 p-4 rounded-3xl ml-2 ${isDark ? 'bg-[#111] border border-[#222]' : 'bg-white border border-gray-100 shadow-sm'}`}>
+            <Text className={`text-xs font-inter-medium mb-2 uppercase ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Voltage</Text>
+            <Text className={`text-2xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>398 V</Text>
           </View>
         </View>
 
-        <View className={`w-full p-4 rounded-2xl mb-8 flex-row justify-between items-end ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-          <View>
-            <Text className={`text-sm font-inter mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Battery</Text>
-            <Text className={`text-4xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>32 %</Text>
+        {/* Stats Grid - Row 2 */}
+        <View className="flex-row justify-between mb-8">
+          <View className={`flex-1 p-5 rounded-3xl mr-2 ${isDark ? 'bg-[#111] border border-[#222]' : 'bg-white border border-gray-100 shadow-sm'}`}>
+            <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Current</Text>
+            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>45 A</Text>
+          </View>
+          <View className={`flex-1 p-5 rounded-3xl ml-2 ${isDark ? 'bg-[#39FF14]/5 border border-[#39FF14]/20' : 'bg-green-50 border border-green-100 shadow-sm'}`}>
+            <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>Power</Text>
+            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-[#39FF14]' : 'text-green-800'}`}>18 kW</Text>
           </View>
         </View>
 

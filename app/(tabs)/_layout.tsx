@@ -1,33 +1,39 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { View, Platform, useColorScheme } from 'react-native';
-import { Home, User, Sparkles } from 'lucide-react-native';
+import { Home, User } from 'lucide-react-native';
+import Svg, { Path, Circle } from 'react-native-svg';
+
+// AI Sparkle icon — a four-pointed star with accent dots
+function AISparkleIcon({ size = 26, color = 'white' }: { size?: number; color?: string }) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M12 2 C12.5 6.5, 15 9, 22 12 C15 12.5, 12.5 15, 12 22 C11.5 15, 9 12.5, 2 12 C9 11.5, 11.5 6.5, 12 2 Z"
+        fill={color}
+      />
+      <Circle cx="18.5" cy="5.5" r="1.5" fill={color} opacity={0.6} />
+      <Circle cx="5.5" cy="18.5" r="1.5" fill={color} opacity={0.6} />
+    </Svg>
+  );
+}
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
   return (
-    <Tabs 
+    <Tabs
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          position: 'absolute',
-          bottom: Platform.OS === 'ios' ? 30 : 20,
-          left: 20,
-          right: 20,
-          elevation: 0,
-          backgroundColor: isDark ? '#111111' : '#ffffff',
-          borderRadius: 30,
-          height: 64,
-          paddingBottom: 0,
-          borderWidth: 1,
-          borderColor: isDark ? '#222222' : '#f3f4f6',
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 10 },
-          shadowOpacity: isDark ? 0.5 : 0.05,
-          shadowRadius: 20,
+          backgroundColor: isDark ? '#000000' : '#ffffff',
+          borderTopWidth: 1,
+          borderTopColor: isDark ? '#222222' : '#f4f4f5',
+          height: Platform.OS === 'ios' ? 88 : 74,
+          paddingTop: 12,
+          paddingBottom: Platform.OS === 'ios' ? 24 : 12,
         },
       }}
     >
@@ -35,9 +41,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-12 h-12 rounded-full items-center justify-center ${focused ? (isDark ? 'bg-[#222222]' : 'bg-gray-100') : 'bg-transparent'}`}>
-              <Home size={22} color={focused ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#666666' : '#9ca3af')} />
-            </View>
+            <Home size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
           ),
         }}
       />
@@ -45,8 +49,11 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-6 border-4 ${isDark ? 'bg-[#39FF14] border-[#000000]' : 'bg-black border-white'} shadow-xl ${isDark ? 'shadow-neon/40' : 'shadow-black/20'}`}>
-              <Sparkles size={24} color={isDark ? '#000000' : '#ffffff'} />
+            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-black') : (isDark ? 'bg-[#111111]' : 'bg-gray-100')}`}>
+              <AISparkleIcon
+                size={28}
+                color={focused ? (isDark ? '#000000' : '#ffffff') : '#71717A'}
+              />
             </View>
           ),
         }}
@@ -55,9 +62,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-12 h-12 rounded-full items-center justify-center ${focused ? (isDark ? 'bg-[#222222]' : 'bg-gray-100') : 'bg-transparent'}`}>
-              <User size={22} color={focused ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#666666' : '#9ca3af')} />
-            </View>
+            <User size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
           ),
         }}
       />
