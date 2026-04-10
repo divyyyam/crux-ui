@@ -47,7 +47,7 @@ export default function RegisterScreen() {
             <Text className={`text-sm font-inter-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Username</Text>
             <View className={`border rounded-xl px-4 py-4 ${isDark ? 'border-gray-800 bg-darkcard' : 'border-gray-200 bg-gray-50'}`}>
               <TextInput
-                placeholder="Exodus"
+                placeholder="alex.carter"
                 placeholderTextColor={isDark ? '#6b7280' : '#9ca3af'}
                 value={username}
                 onChangeText={setUsername}

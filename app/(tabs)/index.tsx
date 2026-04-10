@@ -15,8 +15,8 @@ export default function DashboardScreen() {
         {/* Header */}
         <View className="flex-row justify-between items-center mb-6 pt-2">
           <View>
-            <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Hey Exodus</Text>
-            <Text className={`text-sm mt-1 font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>David Puttar 50010</Text>
+            <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Hey Alex</Text>
+            <Text className={`text-sm mt-1 font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Crux EV-100</Text>
           </View>
           <View className={`w-8 h-8 rounded-full ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`} />
         </View>

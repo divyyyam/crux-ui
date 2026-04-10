@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuthStore } from '../../src/store/authStore';
+import { ChevronRight, User as UserIcon, Bell, Shield, CircleHelp, Smartphone } from 'lucide-react-native';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -14,54 +15,65 @@ export default function SettingsScreen() {
     router.replace('/');
   };
 
-  const sections = [
-    { title: 'Account', items: ['Personal Information', 'Change Password', 'Privacy Settings'] },
-    { title: 'Vehicle', items: ['Manage Connection', 'Diagnostic Preferences'] },
-    { title: 'About', items: ['Help & Support', 'Terms of Service', 'App Version 1.0.0'] },
+  const menuItems = [
+    { icon: UserIcon, label: 'Account Profile' },
+    { icon: Smartphone, label: 'Vehicle Pairing' },
+    { icon: Bell, label: 'Notifications' },
+    { icon: Shield, label: 'Privacy & Security' },
+    { icon: CircleHelp, label: 'Help & Support' },
   ];
 
   return (
-    <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>
-      <ScrollView className="flex-1 px-6 pt-6">
+    <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#000000]' : 'bg-[#FAFAFA]'}`}>
+      <ScrollView className="flex-1 px-6 pt-8">
         
         {/* Header */}
-        <View className="mb-8">
-          <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Settings</Text>
+        <View className="mb-10">
+          <Text className={`text-4xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Settings</Text>
+          <Text className={`text-base font-inter mt-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Manage your account & preferences</Text>
         </View>
 
-        {/* Profile Card */}
-        <View className={`p-6 rounded-3xl mb-8 flex-row items-center ${isDark ? 'bg-darkcard' : 'bg-gray-50'}`}>
-          <View className={`w-16 h-16 rounded-full mr-4 ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`} />
-          <View>
-            <Text className={`text-xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>David Puttar</Text>
-            <Text className={`font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Exodus50010</Text>
+        {/* Premium Profile Card */}
+        <View className={`p-5 rounded-3xl mb-10 flex-row items-center border ${isDark ? 'bg-[#111111] border-[#222222]' : 'bg-white border-gray-100 shadow-sm'}`}>
+          <View className={`w-14 h-14 rounded-full mr-4 items-center justify-center ${isDark ? 'bg-[#2A2A2A]' : 'bg-gray-100'}`}>
+            <Text className={`text-xl font-inter-semibold ${isDark ? 'text-neon' : 'text-black'}`}>A</Text>
           </View>
+          <View className="flex-1">
+            <Text className={`text-lg font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Alex Carter</Text>
+            <Text className={`text-sm font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'} mt-0.5`}>alex.carter</Text>
+          </View>
+          <TouchableOpacity className={`px-4 py-2 rounded-full ${isDark ? 'bg-[#2A2A2A]' : 'bg-gray-100'}`}>
+            <Text className={`text-xs font-inter-medium ${isDark ? 'text-white' : 'text-black'}`}>Edit</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Options */}
-        {sections.map((section, sIdx) => (
-          <View key={sIdx} className="mb-8">
-            <Text className={`text-sm font-inter-medium mb-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{section.title}</Text>
-            <View className={`rounded-3xl overflow-hidden ${isDark ? 'bg-darkcard' : 'bg-gray-50'}`}>
-              {section.items.map((item, iIdx) => (
-                <TouchableOpacity 
-                  key={iIdx} 
-                  className={`p-4 flex-row justify-between items-center ${iIdx !== section.items.length - 1 ? (isDark ? 'border-b border-gray-800' : 'border-b border-gray-200') : ''}`}
-                >
-                  <Text className={`font-inter text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{item}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        ))}
+        <View className={`rounded-3xl mb-8 border overflow-hidden ${isDark ? 'bg-[#111111] border-[#222222]' : 'bg-white border-gray-100 shadow-sm'}`}>
+          {menuItems.map((item, index) => {
+            const Icon = item.icon;
+            const isLast = index === menuItems.length - 1;
+            return (
+              <TouchableOpacity 
+                key={index} 
+                className={`py-4 px-5 flex-row items-center ${!isLast ? (isDark ? 'border-b border-[#222222]' : 'border-b border-gray-100') : ''}`}
+              >
+                <View className={`w-10 h-10 rounded-full items-center justify-center mr-4 ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-50'}`}>
+                  <Icon size={20} color={isDark ? '#39FF14' : '#000000'} />
+                </View>
+                <Text className={`flex-1 font-inter-medium text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{item.label}</Text>
+                <ChevronRight size={20} color={isDark ? '#555555' : '#D1D5DB'} />
+              </TouchableOpacity>
+            );
+          })}
+        </View>
 
         {/* Logout */}
         <TouchableOpacity 
           onPress={handleLogout}
-          className={`w-full py-4 rounded-xl flex-row items-center justify-center mt-4 mb-24 ${isDark ? 'bg-gray-900/50 border border-gray-800' : 'bg-red-50 border border-red-100'}`}
+          className={`w-full py-4 rounded-full flex-row items-center justify-center mt-2 mb-24 border ${isDark ? 'bg-transparent border-[#222222]' : 'bg-transparent border-red-100'}`}
         >
-          <Text className={`font-inter-semibold text-lg ${isDark ? 'text-red-400' : 'text-red-600'}`}>
-            Log Out
+          <Text className={`font-inter-medium text-base ${isDark ? 'text-red-400' : 'text-red-500'}`}>
+            Sign Out
           </Text>
         </TouchableOpacity>
 

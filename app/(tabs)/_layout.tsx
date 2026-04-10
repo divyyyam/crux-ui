@@ -15,18 +15,19 @@ export default function TabLayout() {
         tabBarStyle: {
           position: 'absolute',
           bottom: Platform.OS === 'ios' ? 30 : 20,
-          left: 40,
-          right: 40,
+          left: 20,
+          right: 20,
           elevation: 0,
           backgroundColor: isDark ? '#111111' : '#ffffff',
           borderRadius: 30,
-          height: 60,
+          height: 64,
+          paddingBottom: 0,
           borderWidth: 1,
-          borderColor: isDark ? '#333333' : '#e5e7eb',
-          shadowColor: isDark ? '#000' : '#000',
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.1,
-          shadowRadius: 10,
+          borderColor: isDark ? '#222222' : '#f3f4f6',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 10 },
+          shadowOpacity: isDark ? 0.5 : 0.05,
+          shadowRadius: 20,
         },
       }}
     >
@@ -34,8 +35,8 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-12 h-12 rounded-2xl items-center justify-center ${focused ? (isDark ? 'bg-gray-800' : 'bg-gray-100') : ''}`}>
-              <Home size={24} color={focused ? (isDark ? '#39FF14' : '#000000') : '#6b7280'} />
+            <View className={`w-12 h-12 rounded-full items-center justify-center ${focused ? (isDark ? 'bg-[#222222]' : 'bg-gray-100') : 'bg-transparent'}`}>
+              <Home size={22} color={focused ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#666666' : '#9ca3af')} />
             </View>
           ),
         }}
@@ -44,8 +45,8 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-16 h-16 rounded-3xl items-center justify-center -mt-8 ${isDark ? 'bg-neon' : 'bg-black'} border-4 ${isDark ? 'border-darkbase' : 'border-gray-50'}`}>
-              <Sparkles size={28} color={isDark ? '#000000' : '#ffffff'} />
+            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-6 border-4 ${isDark ? 'bg-[#39FF14] border-[#000000]' : 'bg-black border-white'} shadow-xl ${isDark ? 'shadow-neon/40' : 'shadow-black/20'}`}>
+              <Sparkles size={24} color={isDark ? '#000000' : '#ffffff'} />
             </View>
           ),
         }}
@@ -54,8 +55,8 @@ export default function TabLayout() {
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-12 h-12 rounded-2xl items-center justify-center ${focused ? (isDark ? 'bg-gray-800' : 'bg-gray-100') : ''}`}>
-              <User size={24} color={focused ? (isDark ? '#39FF14' : '#000000') : '#6b7280'} />
+            <View className={`w-12 h-12 rounded-full items-center justify-center ${focused ? (isDark ? 'bg-[#222222]' : 'bg-gray-100') : 'bg-transparent'}`}>
+              <User size={22} color={focused ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#666666' : '#9ca3af')} />
             </View>
           ),
         }}
