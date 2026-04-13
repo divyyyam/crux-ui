@@ -17,7 +17,7 @@ backend
 *.p12
 *.key
 *.mobileprovision
-
+connections.md
 # Metro
 .metro-health-check*
 

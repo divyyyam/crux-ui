@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, useColorScheme } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, useColorScheme, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
+import { useAuthStore } from '../../src/store/authStore';
+import client from '../../src/api/client';
 
 export default function RegisterScreen() {
   const [username, setUsername] = useState('');
@@ -9,17 +11,36 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
+  const setTokens = useAuthStore((state) => state.setTokens);
+  const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
   const handleRegister = async () => {
+    if (!username || !email || !password) {
+      Alert.alert('Error', 'Please fill in all fields.');
+      return;
+    }
+
     setIsLoading(true);
-    // Mock registration logic
-    setTimeout(() => {
+    try {
+      const response = await client.post('/auth/signup', { name: username, email, password });
+      
+      if (response.data && response.data.success) {
+        const { user, accessToken, refreshToken } = response.data.data;
+        await setTokens(accessToken, refreshToken);
+        setUser(user);
+        router.replace('/(tabs)');
+      } else {
+        Alert.alert('Registration Failed', response.data?.message || 'Something went wrong');
+      }
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      Alert.alert('Registration Error', error.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
       setIsLoading(false);
-      router.replace('/(tabs)');
-    }, 500);
+    }
   };
 
   return (

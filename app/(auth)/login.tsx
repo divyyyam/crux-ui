@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, useColorScheme } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, useColorScheme, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useAuthStore } from '../../src/store/authStore';
 import { ArrowLeft } from 'lucide-react-native';
+import client from '../../src/api/client';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -10,17 +11,35 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
   
   const setTokens = useAuthStore((state) => state.setTokens);
+  const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter both email and password.');
+      return;
+    }
+    
     setIsLoading(true);
-    // Mock login logic, bypassing actual auth check for MVP demo
-    setTimeout(async () => {
+    try {
+      const response = await client.post('/auth/signin', { email, password });
+      
+      if (response.data && response.data.success) {
+        const { user, accessToken, refreshToken } = response.data.data;
+        await setTokens(accessToken, refreshToken);
+        setUser(user);
+        router.replace('/(tabs)');
+      } else {
+        Alert.alert('Login Failed', response.data?.message || 'Invalid credentials');
+      }
+    } catch (error: any) {
+      console.error('Login error:', error);
+      Alert.alert('Login Error', error.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
       setIsLoading(false);
-      router.replace('/(tabs)');
-    }, 500);
+    }
   };
 
   return (

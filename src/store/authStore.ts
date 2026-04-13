@@ -5,6 +5,7 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   user: any | null;
+  isInitialized: boolean;
   setTokens: (accessToken: string, refreshToken: string) => Promise<void>;
   setUser: (user: any) => void;
   logout: () => Promise<void>;
@@ -15,6 +16,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,
   refreshToken: null,
   user: null,
+  isInitialized: false,
 
   setTokens: async (accessToken, refreshToken) => {
     await SecureStore.setItemAsync('accessToken', accessToken);
@@ -31,8 +33,12 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   initialize: async () => {
-    const accessToken = await SecureStore.getItemAsync('accessToken');
-    const refreshToken = await SecureStore.getItemAsync('refreshToken');
-    set({ accessToken, refreshToken });
+    try {
+      const accessToken = await SecureStore.getItemAsync('accessToken');
+      const refreshToken = await SecureStore.getItemAsync('refreshToken');
+      set({ accessToken, refreshToken, isInitialized: true });
+    } catch {
+      set({ isInitialized: true });
+    }
   },
 }));

@@ -13,7 +13,7 @@ import { useAuthStore } from '../src/store/authStore';
 
   export default function RootLayout() {
     const colorScheme = useColorScheme();
-    const { accessToken, initialize } = useAuthStore();
+    const { accessToken, initialize, isInitialized } = useAuthStore();
     const segments = useSegments();
     const router = useRouter();
 
@@ -33,22 +33,26 @@ import { useAuthStore } from '../src/store/authStore';
       }
     }, [fontsLoaded]);
 
-    if (!fontsLoaded) {
-      return null;
-    }
-
-    // Auth redirects Disabled for MVP UI construction
-    /*
     useEffect(() => {
-      const inAuthGroup = segments[0] === '(auth)';
-      
-      if (!accessToken && !inAuthGroup) {
-        router.replace('/login');
-      } else if (accessToken && inAuthGroup) {
+      if (!isInitialized) return;
+
+      const segs = segments as string[];
+      const inAuthGroup = segs[0] === '(auth)';
+      const isRoot = segs.length === 0 || segs[0] === 'index';
+
+      // If logged out and not in auth group or root (Get Started), force to Root
+      if (!accessToken && !inAuthGroup && !isRoot) {
+        router.replace('/');
+      } 
+      // If logged in and in auth group or root, force to Tabs
+      else if (accessToken && (inAuthGroup || isRoot)) {
         router.replace('/(tabs)');
       }
-    }, [accessToken, segments]);
-    */
+    }, [accessToken, segments, isInitialized]);
+
+    if (!fontsLoaded || !isInitialized) {
+      return null;
+    }
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
