@@ -39,13 +39,12 @@ export default function SettingsScreen() {
   }));
 
   const handleLogout = async () => {
-    router.push('/(auth)/login')
     // Fire and forget backend logout to ensure immediate UI feedback
     client.post('/auth/logout').catch((error) => {
       console.log('Backend logout failed or not supported', error);
     });
     await logout();
-    // The Navigation Guard in _layout.tsx will automatically catch the null token and redirect to /
+    // The Navigation Guard in _layout.tsx will automatically catch the null token and redirect to /(auth)/login
   };
 
   const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {

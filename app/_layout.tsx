@@ -78,7 +78,7 @@ export default function RootLayout() {
     const isRoot = segs.length === 0 || segs[0] === 'index';
 
     if (!accessToken && !inAuthGroup && !isRoot) {
-      router.replace('/');
+      router.replace('/(auth)/login');
     } else if (accessToken && (inAuthGroup || isRoot)) {
       if (segs[0] !== '(tabs)') {
         router.replace('/(tabs)');
