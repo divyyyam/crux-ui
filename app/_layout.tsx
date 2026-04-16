@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useColorScheme as useRNColorScheme, View } from 'react-native';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme as useNWColorScheme } from 'nativewind';
@@ -91,15 +91,13 @@ export default function RootLayout() {
   const activeTheme = theme === 'system' ? systemColorScheme : theme;
 
   return (
-    <ThemeProvider value={activeTheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <View style={{ flex: 1 }}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </View>
+    <View style={{ flex: 1, backgroundColor: activeTheme === 'dark' ? '#000000' : '#ffffff' }}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(tabs)" />
+      </Stack>
       <StatusBar style={activeTheme === 'dark' ? 'light' : 'dark'} />
-    </ThemeProvider>
+    </View>
   );
 }

@@ -71,8 +71,8 @@ export default function DashboardScreen() {
         <View style={{ height: size }} className="w-full relative mb-8 justify-center items-center">
           <View className={`absolute inset-0 rounded-3xl opacity-5 mt-4 mb-4 ${isDark ? 'bg-[#39FF14]' : 'bg-gray-300'}`} />
           <Image 
-            source={require('../../assets/images/pngtree-electric-mountain-bike-with-fat-tires-and-modern-frame-png-image_20853368.png')} 
-            style={{ width: '100%', height: '100%' }}
+            source={require('../../assets/images/WhatsApp Image 2026-04-16 at 23.21.03.jpeg')} 
+            style={{ width: '100%', height: '100%', borderRadius: 24 }}
             contentFit="contain"
             transition={500}
           />

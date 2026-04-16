@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme } from 'react-native';
 import { Link, useRouter } from 'expo-router';
+import { Image } from 'expo-image';
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -13,9 +14,14 @@ export default function OnboardingScreen() {
       <View className="flex-1 px-6 justify-between pt-10 pb-8">
         
         {/* Top Spacer for Image placeholder later */}
-        <View style={{ height: height * 0.4 }} className="w-full relative">
-          {/* We will add an image here later as requested by the user */}
-          <View className={`absolute inset-0 rounded-3xl opacity-20 ${isDark ? 'bg-neon' : 'bg-gray-100'}`} />
+        <View style={{ height: height * 0.4 }} className="w-full relative rounded-3xl overflow-hidden mt-4">
+          <Image 
+            source={require('../assets/images/WhatsApp Image 2026-04-16 at 23.23.27.jpeg')} 
+            style={{ width: '100%', height: '100%' }}
+            contentFit="cover"
+            transition={500}
+          />
+          <View className={`absolute inset-0 opacity-20 ${isDark ? 'bg-neon' : 'bg-transparent'}`} />
         </View>
 
         {/* Content Area */}

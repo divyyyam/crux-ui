@@ -45,7 +45,7 @@ export default function SettingsScreen() {
     });
     
     await logout();
-    router.replace('/(auth)/login');
+    router.replace('/');
   };
 
   const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {
