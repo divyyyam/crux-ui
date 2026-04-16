@@ -39,13 +39,13 @@ export default function SettingsScreen() {
   }));
 
   const handleLogout = async () => {
+    router.push('/(auth)/login')
     // Fire and forget backend logout to ensure immediate UI feedback
     client.post('/auth/logout').catch((error) => {
       console.log('Backend logout failed or not supported', error);
     });
-    
     await logout();
-    router.replace('/');
+    // The Navigation Guard in _layout.tsx will automatically catch the null token and redirect to /
   };
 
   const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {
@@ -55,9 +55,7 @@ export default function SettingsScreen() {
   };
 
   const menuItems = [
-    { icon: UserIcon, label: 'Account Profile' },
     { icon: Smartphone, label: 'Vehicle Pairing' },
-    { icon: Bell, label: 'Notifications' },
     { icon: Shield, label: 'Privacy & Security' },
     { icon: CircleHelp, label: 'Help & Support' },
   ];
@@ -158,6 +156,10 @@ export default function SettingsScreen() {
                 onPress={() => {
                   if (item.label === 'Vehicle Pairing') {
                     router.push('/(tabs)/pairing');
+                  } else if (item.label === 'Privacy & Security') {
+                    router.push('/privacy');
+                  } else if (item.label === 'Help & Support') {
+                    router.push('/help');
                   }
                 }}
                 className={`py-4 px-5 flex-row items-center ${!isLast ? (isDark ? 'border-b border-darkcard' : 'border-b border-gray-100') : ''}`}

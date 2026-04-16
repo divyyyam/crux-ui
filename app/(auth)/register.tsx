@@ -31,7 +31,6 @@ export default function RegisterScreen() {
         const { user: basicUser, accessToken, refreshToken } = response.data.data;
         await setTokens(accessToken, refreshToken);
         
-        // Fetch full profile to get paired devices logic as returned by backend /me
         try {
           const meResponse = await client.get('/auth/me');
           if (meResponse.data && meResponse.data.success) {

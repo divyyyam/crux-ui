@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme, Image } from 'react-native';
 import { useAuthStore } from '../../src/store/authStore';
-import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import client from '../../src/api/client';
 
 export default function DashboardScreen() {
   const router = useRouter();
   const { height } = Dimensions.get('window');
-  const size = height * 0.4;
+  const size = height * 0.5; // Increased from 0.4 to 0.5
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -46,7 +45,7 @@ export default function DashboardScreen() {
     }, 90000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [user?.pairedDeviceId]);
 
   const nameRaw = user?.name || 'User';
   const firstName = nameRaw.toLowerCase() === 'puttar' ? 'User' : nameRaw.split(' ')[0];
@@ -59,27 +58,25 @@ export default function DashboardScreen() {
       <ScrollView className="flex-1 px-6 pt-6">
         
         {/* Header */}
-        <View className="flex-row justify-between items-center mb-6 pt-2">
+        <View className="flex-row justify-between items-center mb-4 pt-2">
           <View>
             <Text className={`text-3xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Hey {firstName}</Text>
             <Text className={`text-sm mt-1 font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{deviceName}</Text>
           </View>
-          <View className={`w-8 h-8 rounded-full ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`} />
         </View>
 
         {/* Bike Showcase */}
-        <View style={{ height: size }} className="w-full relative mb-8 justify-center items-center">
-          <View className={`absolute inset-0 rounded-3xl opacity-5 mt-4 mb-4 ${isDark ? 'bg-[#39FF14]' : 'bg-gray-300'}`} />
+        <View style={{ height: size }} className="w-full relative mb-6 justify-center items-center">
+          <View className={`absolute inset-0 rounded-3xl opacity-5 ${isDark ? 'bg-[#39FF14]' : 'bg-gray-300'}`} />
           <Image 
-            source={require('../../assets/images/WhatsApp Image 2026-04-16 at 23.21.03.jpeg')} 
+            source={require('../../assets/images/c7eb340e-bce1-4fdd-a188-bc7ac245dc9a.png')} 
             style={{ width: '100%', height: '100%', borderRadius: 24 }}
-            contentFit="contain"
-            transition={500}
+            resizeMode="cover"
           />
         </View>
 
         {/* Stats Grid - Row 1 */}
-        <View className="flex-row justify-between mb-4">
+        <View className="flex-row justify-between mb-3">
           <View className={`flex-1 p-4 rounded-3xl mr-2 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-white border border-gray-100 shadow-sm'}`}>
             <Text className={`text-xs font-inter-medium mb-2 uppercase ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Temp</Text>
             <Text className={`text-2xl font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats ? `${stats.temp}°C` : '--'}</Text>
@@ -95,7 +92,7 @@ export default function DashboardScreen() {
         </View>
 
         {/* Stats Grid - Row 2 */}
-        <View className="flex-row justify-between mb-8">
+        <View className="flex-row justify-between mb-6">
           <View className={`flex-1 p-5 rounded-3xl mr-2 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-white border border-gray-100 shadow-sm'}`}>
             <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Current</Text>
             <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats ? `${stats.current} A` : '--'}</Text>

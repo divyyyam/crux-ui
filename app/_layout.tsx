@@ -80,7 +80,9 @@ export default function RootLayout() {
     if (!accessToken && !inAuthGroup && !isRoot) {
       router.replace('/');
     } else if (accessToken && (inAuthGroup || isRoot)) {
-      router.replace('/(tabs)');
+      if (segs[0] !== '(tabs)') {
+        router.replace('/(tabs)');
+      }
     }
   }, [accessToken, segments, isInitialized, isAuthChecking]);
 

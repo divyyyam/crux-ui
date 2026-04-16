@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme, Image } from 'react-native';
 import { Link, useRouter } from 'expo-router';
-import { Image } from 'expo-image';
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -13,15 +12,13 @@ export default function OnboardingScreen() {
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>
       <View className="flex-1 px-6 justify-between pt-10 pb-8">
         
-        {/* Top Spacer for Image placeholder later */}
+        {/* Top Spacer for Image */}
         <View style={{ height: height * 0.4 }} className="w-full relative rounded-3xl overflow-hidden mt-4">
           <Image 
-            source={require('../assets/images/WhatsApp Image 2026-04-16 at 23.23.27.jpeg')} 
+            source={require('../assets/images/f77f3e73-862e-4693-a3d2-0962c8362679.png')} 
             style={{ width: '100%', height: '100%' }}
-            contentFit="cover"
-            transition={500}
+            resizeMode="cover"
           />
-          <View className={`absolute inset-0 opacity-20 ${isDark ? 'bg-neon' : 'bg-transparent'}`} />
         </View>
 
         {/* Content Area */}
