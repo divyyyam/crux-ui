@@ -48,8 +48,11 @@ export default function DashboardScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const firstName = user?.name ? user.name.split(' ')[0] : 'User';
-  const deviceName = user?.pairedDeviceName || 'Crux EV-100';
+  const nameRaw = user?.name || 'User';
+  const firstName = nameRaw.toLowerCase() === 'puttar' ? 'User' : nameRaw.split(' ')[0];
+  const deviceName = user?.pairedDeviceName && user.pairedDeviceName.toLowerCase() !== 'puttar' 
+    ? user.pairedDeviceName 
+    : 'Crux EV-100';
 
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>

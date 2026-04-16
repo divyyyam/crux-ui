@@ -39,14 +39,13 @@ export default function SettingsScreen() {
   }));
 
   const handleLogout = async () => {
-    try {
-      await client.post('/auth/logout');
-    } catch (error) {
+    // Fire and forget backend logout to ensure immediate UI feedback
+    client.post('/auth/logout').catch((error) => {
       console.log('Backend logout failed or not supported', error);
-    } finally {
-      await logout();
-      router.replace('/');
-    }
+    });
+    
+    await logout();
+    router.replace('/(auth)/login');
   };
 
   const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {
@@ -63,9 +62,12 @@ export default function SettingsScreen() {
     { icon: CircleHelp, label: 'Help & Support' },
   ];
 
-  const profileInitials = user?.name ? user.name.charAt(0).toUpperCase() : 'A';
-  const profileName = user?.name || 'Alex Carter';
-  const profileEmail = user?.email || 'alex.carter';
+  const profileInitials = user?.name && user.name.toLowerCase() !== 'puttar' ? user.name.charAt(0).toUpperCase() : 'U';
+  const profileName = user?.name && user.name.toLowerCase() !== 'puttar' ? user.name : 'User';
+  const profileEmail = user?.email || 'user@crux.co';
+  const displayDeviceName = user?.pairedDeviceName && user.pairedDeviceName.toLowerCase() !== 'puttar' 
+    ? user.pairedDeviceName 
+    : user?.pairedDeviceId; // ← Fixed: added ?. to handle null user
 
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-[#FAFAFA]'}`}>
@@ -96,7 +98,7 @@ export default function SettingsScreen() {
           <View className={`px-5 py-4 rounded-2xl mb-8 flex-row items-center border ${isDark ? 'bg-[#39FF14]/5 border-[#39FF14]/20' : 'bg-green-50 border-green-100'}`}>
             <View className={`w-2 h-2 rounded-full bg-green-500 mr-3`} />
             <Text className={`flex-1 text-sm font-inter-medium ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>
-              Active: {user.pairedDeviceName || user.pairedDeviceId}
+              Active: {displayDeviceName}
             </Text>
           </View>
         )}

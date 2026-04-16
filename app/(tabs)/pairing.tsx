@@ -80,7 +80,7 @@ export default function PairingScreen() {
             <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-[#39FF14]/10 border border-[#39FF14]/20'}`}>
               <CheckCircle2 size={40} color={isDark ? '#39FF14' : '#16a34a'} />
             </View>
-            <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>{user.pairedDeviceName || 'Active Vehicle'}</Text>
+            <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>{user.pairedDeviceName && user.pairedDeviceName.toLowerCase() !== 'puttar' ? user.pairedDeviceName : 'Active Vehicle'}</Text>
             <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
               Your Crux hardware module is securely connected.
             </Text>

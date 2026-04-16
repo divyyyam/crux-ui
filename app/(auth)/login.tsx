@@ -103,6 +103,11 @@ export default function LoginScreen() {
                 className={`font-inter text-base ${isDark ? 'text-white' : 'text-gray-900'}`}
               />
             </View>
+            <View className="flex-row justify-end mt-3">
+              <Link href="/(auth)/forgot-password">
+                <Text className={`font-inter-medium ${isDark ? 'text-neon' : 'text-black'}`}>Forgot Password?</Text>
+              </Link>
+            </View>
           </View>
         </View>
 
