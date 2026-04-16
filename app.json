@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "crux-ui",
-    "slug": "crux-ui",
+    "name": "Crux",
+    "slug": "crux",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +20,8 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.divyam.dev.cruxui"
+      "package": "com.divyam.dev.cruxui",
+      "usesCleartextTraffic": true
     },
     "web": {
       "output": "static",
