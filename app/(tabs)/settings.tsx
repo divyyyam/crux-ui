@@ -92,9 +92,9 @@ export default function SettingsScreen() {
 
         {/* Device Status */}
         {user?.pairedDeviceId && (
-          <View className={`px-5 py-4 rounded-2xl mb-8 flex-row items-center border ${isDark ? 'bg-[#39FF14]/5 border-[#39FF14]/20' : 'bg-green-50 border-green-100'}`}>
+          <View className={`px-5 py-4 rounded-2xl mb-8 flex-row items-center border ${isDark ? 'bg-[#B0EC70]/5 border-[#B0EC70]/20' : 'bg-green-50 border-green-100'}`}>
             <View className={`w-2 h-2 rounded-full bg-green-500 mr-3`} />
-            <Text className={`flex-1 text-sm font-inter-medium ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>
+            <Text className={`flex-1 text-sm font-inter-medium ${isDark ? 'text-[#B0EC70]' : 'text-green-700'}`}>
               Active: {displayDeviceName}
             </Text>
           </View>
@@ -134,7 +134,7 @@ export default function SettingsScreen() {
                   onPress={() => handleThemeChange(mode)}
                   className="flex-1 flex-row items-center justify-center py-3 z-10"
                 >
-                  <Icon size={18} color={isActive ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#555' : '#999')} />
+                  <Icon size={18} color={isActive ? (isDark ? '#B0EC70' : '#000000') : (isDark ? '#555' : '#999')} />
                   <Text className={`ml-2 font-inter-medium text-xs capitalize ${isActive ? (isDark ? 'text-white' : 'text-gray-900') : (isDark ? 'text-gray-500' : 'text-gray-400')}`}>
                     {mode}
                   </Text>
@@ -164,7 +164,7 @@ export default function SettingsScreen() {
                 className={`py-4 px-5 flex-row items-center ${!isLast ? (isDark ? 'border-b border-darkcard' : 'border-b border-gray-100') : ''}`}
               >
                 <View className={`w-10 h-10 rounded-full items-center justify-center mr-4 ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-50'}`}>
-                  <Icon size={20} color={isDark ? '#39FF14' : '#000000'} />
+                  <Icon size={20} color={isDark ? '#B0EC70' : '#000000'} />
                 </View>
                 <Text className={`flex-1 font-inter-medium text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{item.label}</Text>
                 <ChevronRight size={20} color={isDark ? '#555555' : '#D1D5DB'} />

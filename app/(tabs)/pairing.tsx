@@ -77,8 +77,8 @@ export default function PairingScreen() {
       <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>
         <View className="flex-1 px-6 pt-12">
           <View className="items-center mb-12">
-            <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-[#39FF14]/10 border border-[#39FF14]/20'}`}>
-              <CheckCircle2 size={40} color={isDark ? '#39FF14' : '#16a34a'} />
+            <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-[#B0EC70]/10 border border-[#B0EC70]/20'}`}>
+              <CheckCircle2 size={40} color={isDark ? '#B0EC70' : '#16a34a'} />
             </View>
             <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>{user.pairedDeviceName && user.pairedDeviceName.toLowerCase() !== 'puttar' ? user.pairedDeviceName : 'Active Vehicle'}</Text>
             <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -89,7 +89,7 @@ export default function PairingScreen() {
           <View className={`border rounded-2xl p-6 items-center ${isDark ? 'border-gray-800 bg-darkcard' : 'border-gray-200 bg-gray-50'}`}>
             <Cpu size={32} color={isDark ? '#fff' : '#000'} style={{ marginBottom: 16 }} />
             <Text className={`text-xs font-inter-medium uppercase tracking-widest ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Hardware ID</Text>
-            <Text className={`text-xl font-inter-semibold mt-2 tracking-widest ${isDark ? 'text-[#39FF14]' : 'text-green-600'}`}>{user.pairedDeviceId}</Text>
+            <Text className={`text-xl font-inter-semibold mt-2 tracking-widest ${isDark ? 'text-[#B0EC70]' : 'text-green-600'}`}>{user.pairedDeviceId}</Text>
           </View>
 
           <View className="mt-auto mb-10">
@@ -118,7 +118,7 @@ export default function PairingScreen() {
         {/* Header Section */}
         <View className="items-center mb-12">
           <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-gray-100 border border-gray-200'}`}>
-            <Cpu size={40} color={isDark ? '#39FF14' : '#000000'} />
+            <Cpu size={40} color={isDark ? '#B0EC70' : '#000000'} />
           </View>
           <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>Pair Device</Text>
           <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>

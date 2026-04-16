@@ -23,7 +23,7 @@ export default function HelpScreen() {
       <ScrollView className="flex-1 px-6 pt-8">
         <View className="items-center mb-10 mt-2">
           <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-gray-100 border border-gray-200'}`}>
-            <CircleHelp size={40} color={isDark ? '#39FF14' : '#000000'} />
+            <CircleHelp size={40} color={isDark ? '#B0EC70' : '#000000'} />
           </View>
           <Text className={`text-2xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>How can we help?</Text>
           <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>

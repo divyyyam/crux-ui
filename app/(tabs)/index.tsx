@@ -67,7 +67,7 @@ export default function DashboardScreen() {
 
         {/* Bike Showcase */}
         <View style={{ height: size }} className="w-full relative mb-6 justify-center items-center">
-          <View className={`absolute inset-0 rounded-3xl opacity-5 ${isDark ? 'bg-[#39FF14]' : 'bg-gray-300'}`} />
+          <View className={`absolute inset-0 rounded-3xl opacity-5 ${isDark ? 'bg-[#B0EC70]' : 'bg-gray-300'}`} />
           <Image 
             source={require('../../assets/images/c7eb340e-bce1-4fdd-a188-bc7ac245dc9a.png')} 
             style={{ width: '100%', height: '100%', borderRadius: 24 }}
@@ -97,9 +97,9 @@ export default function DashboardScreen() {
             <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Current</Text>
             <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{stats ? `${stats.current} A` : '--'}</Text>
           </View>
-          <View className={`flex-1 p-5 rounded-3xl ml-2 ${isDark ? 'bg-[#39FF14]/5 border border-[#39FF14]/20' : 'bg-green-50 border border-green-100 shadow-sm'}`}>
-            <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>Power</Text>
-            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-[#39FF14]' : 'text-green-800'}`}>{stats ? `${stats.power.toFixed(1)} kW` : '--'}</Text>
+          <View className={`flex-1 p-5 rounded-3xl ml-2 ${isDark ? 'bg-[#B0EC70]/5 border border-[#B0EC70]/20' : 'bg-green-50 border border-green-100 shadow-sm'}`}>
+            <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-[#B0EC70]' : 'text-green-700'}`}>Power</Text>
+            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-[#B0EC70]' : 'text-green-800'}`}>{stats ? `${stats.power.toFixed(1)} kW` : '--'}</Text>
           </View>
         </View>
 

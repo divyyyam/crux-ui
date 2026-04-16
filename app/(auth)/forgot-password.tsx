@@ -50,7 +50,7 @@ export default function ForgotPasswordScreen() {
         {/* Header Section */}
         <View className="mb-10 items-center">
           <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-gray-100 border border-gray-200'}`}>
-            <Mail size={40} color={isDark ? '#39FF14' : '#000000'} />
+            <Mail size={40} color={isDark ? '#B0EC70' : '#000000'} />
           </View>
           <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>Reset Password</Text>
           <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>

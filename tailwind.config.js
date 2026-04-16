@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        neon: '#39FF14',
+        neon: '#B0EC70',
         darkbase: '#000000',
         darkcard: '#111111',
       },

@@ -41,7 +41,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Home size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
+            <Home size={30} color={focused ? (isDark ? '#B0EC70' : '#000000') : '#71717A'} />
           ),
         }}
       />
@@ -49,7 +49,7 @@ export default function TabLayout() {
         name="pairing"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Cpu size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
+            <Cpu size={30} color={focused ? (isDark ? '#B0EC70' : '#000000') : '#71717A'} />
           ),
         }}
       />
@@ -57,7 +57,7 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-          <View className={`w-12 h-12 rounded-full items-center justify-center -mt-1 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
+          <View className={`w-12 h-12 rounded-full items-center justify-center -mt-1 ${focused ? (isDark ? 'bg-[#B0EC70]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
               <AISparkleIcon
                 size={20}
                 color={focused ? (isDark ? '#000000' : '#ffffff') : '#71717A'}
@@ -70,7 +70,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
-            <User size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
+            <User size={30} color={focused ? (isDark ? '#B0EC70' : '#000000') : '#71717A'} />
           ),
         }}
       />

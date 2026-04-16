@@ -42,11 +42,11 @@ export default function AiChatbotScreen() {
       {/* Header */}
       <View className={`px-6 pt-12 pb-3 border-b ${isDark ? 'border-darkcard' : 'border-gray-100'} flex-row items-center border-t-0`}>
         <View className={`w-10 h-10 rounded-full items-center justify-center mr-3 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-          <Sparkles size={16} color={isDark ? '#39FF14' : '#000000'} />
+          <Sparkles size={16} color={isDark ? '#B0EC70' : '#000000'} />
         </View>
         <View className="flex-1">
           <Text className={`text-lg font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Crux AI Auto-Diagnostics</Text>
-          <Text className={`text-xs font-inter-medium ${isDark ? 'text-[#39FF14]' : 'text-green-600'}`}>Real-time Insight Engine</Text>
+          <Text className={`text-xs font-inter-medium ${isDark ? 'text-[#B0EC70]' : 'text-green-600'}`}>Real-time Insight Engine</Text>
         </View>
         <TouchableOpacity 
           onPress={fetchReport} 
@@ -54,7 +54,7 @@ export default function AiChatbotScreen() {
           className={`w-10 h-10 rounded-full items-center justify-center ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}
         >
           {isLoading ? (
-             <ActivityIndicator size="small" color={isDark ? '#39FF14' : '#000000'} />
+             <ActivityIndicator size="small" color={isDark ? '#B0EC70' : '#000000'} />
           ) : (
              <RefreshCw size={16} color={isDark ? '#ffffff' : '#000000'} />
           )}
@@ -73,7 +73,7 @@ export default function AiChatbotScreen() {
         ) : (
           <View className="flex-row justify-start mb-10 w-full pr-4">
             <View className={`w-8 h-8 rounded-full items-center justify-center mr-3 mt-1 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-              <Sparkles size={12} color={isDark ? '#39FF14' : '#000000'} />
+              <Sparkles size={12} color={isDark ? '#B0EC70' : '#000000'} />
             </View>
             
             <View className={`flex-1 rounded-3xl rounded-tl-sm px-5 py-5 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-white border border-gray-100 shadow-sm'}`}>
@@ -97,8 +97,8 @@ export default function AiChatbotScreen() {
                   </Text>
                   
                   {report.telemetrySummary && (
-                    <View className={`mt-5 pt-4 border-t ${isDark ? 'border-[#39FF14]/20' : 'border-gray-200'}`}>
-                      <Text className={`text-xs uppercase tracking-widest font-inter-semibold mb-3 ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>
+                    <View className={`mt-5 pt-4 border-t ${isDark ? 'border-[#B0EC70]/20' : 'border-gray-200'}`}>
+                      <Text className={`text-xs uppercase tracking-widest font-inter-semibold mb-3 ${isDark ? 'text-[#B0EC70]' : 'text-green-700'}`}>
                         Recent Telemetry Summary
                       </Text>
                       {Object.keys(report.telemetrySummary).map((key) => (

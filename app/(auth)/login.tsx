@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, useColorScheme, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useAuthStore } from '../../src/store/authStore';
-import { ArrowLeft } from 'lucide-react-native';
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react-native';
 import client from '../../src/api/client';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
   const setTokens = useAuthStore((state) => state.setTokens);
@@ -93,15 +94,22 @@ export default function LoginScreen() {
 
           <View className="mt-4">
             <Text className={`text-sm font-inter-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Password</Text>
-            <View className={`border rounded-xl px-4 py-4 ${isDark ? 'border-gray-800 bg-darkcard' : 'border-gray-200 bg-gray-50'}`}>
+            <View className={`border rounded-xl px-4 py-4 flex-row items-center justify-between ${isDark ? 'border-gray-800 bg-darkcard' : 'border-gray-200 bg-gray-50'}`}>
               <TextInput
                 placeholder="••••••••••••"
                 placeholderTextColor={isDark ? '#6b7280' : '#9ca3af'}
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry
-                className={`font-inter text-base ${isDark ? 'text-white' : 'text-gray-900'}`}
+                secureTextEntry={!showPassword}
+                className={`font-inter text-base flex-1 ${isDark ? 'text-white' : 'text-gray-900'}`}
               />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="ml-2">
+                {showPassword ? (
+                  <EyeOff size={20} color={isDark ? '#6b7280' : '#9ca3af'} />
+                ) : (
+                  <Eye size={20} color={isDark ? '#6b7280' : '#9ca3af'} />
+                )}
+              </TouchableOpacity>
             </View>
             <View className="flex-row justify-end mt-3">
               <Link href="/(auth)/forgot-password">
