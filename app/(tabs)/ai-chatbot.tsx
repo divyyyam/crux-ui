@@ -16,11 +16,11 @@ export default function AiChatbotScreen() {
         {/* Header */}
         <View className={`px-6 py-4 border-b ${isDark ? 'border-darkcard' : 'border-gray-100'} flex-row items-center border-t-0`}>
           <View className={`w-10 h-10 rounded-full items-center justify-center mr-3 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-            <Sparkles size={18} color={isDark ? '#39D391' : '#0F141E'} />
+            <Sparkles size={18} color={isDark ? '#39FF14' : '#000000'} />
           </View>
           <View>
             <Text className={`text-lg font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Crux AI</Text>
-            <Text className={`text-xs font-inter-medium ${isDark ? 'text-[#39D391]' : 'text-green-600'}`}>Online</Text>
+            <Text className={`text-xs font-inter-medium ${isDark ? 'text-[#39FF14]' : 'text-green-600'}`}>Online</Text>
           </View>
         </View>
 
@@ -40,7 +40,7 @@ export default function AiChatbotScreen() {
           {/* AI Message */}
           <View className="flex-row justify-start mb-6">
             <View className={`w-8 h-8 rounded-full items-center justify-center mr-2 mt-1 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
-              <Sparkles size={14} color={isDark ? '#39D391' : '#0F141E'} />
+              <Sparkles size={14} color={isDark ? '#39FF14' : '#000000'} />
             </View>
             <View className={`max-w-[80%] rounded-3xl rounded-tl-sm px-5 py-4 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-white border border-gray-100 shadow-sm'}`}>
               <Text className={`font-inter text-base leading-relaxed ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -48,10 +48,10 @@ export default function AiChatbotScreen() {
               </Text>
               <View className="mt-3 space-y-2">
                 <Text className={`font-inter text-[15px] leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                  • <Text className={`font-inter-semibold ${isDark ? 'text-white' : 'text-darkbase'}`}>Charge Range:</Text> Limit typical daily charging to 80% to preserve cell longevity.
+                  • <Text className={`font-inter-semibold ${isDark ? 'text-white' : 'text-black'}`}>Charge Range:</Text> Limit typical daily charging to 80% to preserve cell longevity.
                 </Text>
                 <Text className={`font-inter text-[15px] leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                  • <Text className={`font-inter-semibold ${isDark ? 'text-white' : 'text-darkbase'}`}>Temperature:</Text> The battery is comfortable at exactly 32°C now. If parked in freezing conditions, keep it plugged in.
+                  • <Text className={`font-inter-semibold ${isDark ? 'text-white' : 'text-black'}`}>Temperature:</Text> The battery is comfortable at exactly 32°C now. If parked in freezing conditions, keep it plugged in.
                 </Text>
               </View>
               <Text className={`font-inter mt-4 text-[15px] leading-relaxed ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -73,7 +73,7 @@ export default function AiChatbotScreen() {
               multiline
             />
             <TouchableOpacity className={`w-10 h-10 rounded-full items-center justify-center mr-1 ${isDark ? 'bg-neon' : 'bg-darkbase'}`}>
-              <Send size={18} color={isDark ? '#0F141E' : '#ffffff'} style={{ marginLeft: -2 }} />
+              <Send size={18} color={isDark ? '#000000' : '#ffffff'} style={{ marginLeft: -2 }} />
             </TouchableOpacity>
           </View>
         </View>

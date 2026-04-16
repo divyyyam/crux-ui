@@ -28,9 +28,9 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: isDark ? '#0F141E' : '#ffffff',
+          backgroundColor: isDark ? '#000000' : '#ffffff',
           borderTopWidth: 1,
-          borderTopColor: isDark ? '#252D3D' : '#f4f4f5',
+          borderTopColor: isDark ? '#111111' : '#f4f4f5',
           height: Platform.OS === 'ios' ? 88 : 74,
           paddingTop: 12,
           paddingBottom: Platform.OS === 'ios' ? 24 : 12,
@@ -41,7 +41,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Home size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
+            <Home size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
           ),
         }}
       />
@@ -49,7 +49,7 @@ export default function TabLayout() {
         name="pairing"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Cpu size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
+            <Cpu size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
           ),
         }}
       />
@@ -57,10 +57,10 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39D391]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
+            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
               <AISparkleIcon
                 size={28}
-                color={focused ? (isDark ? '#0F141E' : '#ffffff') : '#71717A'}
+                color={focused ? (isDark ? '#000000' : '#ffffff') : '#71717A'}
               />
             </View>
           ),
@@ -70,7 +70,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
-            <User size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
+            <User size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
           ),
         }}
       />

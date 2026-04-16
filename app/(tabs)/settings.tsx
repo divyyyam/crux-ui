@@ -2,27 +2,33 @@ import React from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuthStore } from '../../src/store/authStore';
-import { ChevronRight, User as UserIcon, Bell, Shield, CircleHelp, Smartphone } from 'lucide-react-native';
+import { useThemeStore } from '../../src/store/themeStore';
+import * as Haptics from 'expo-haptics';
+import { ChevronRight, User as UserIcon, Bell, Shield, CircleHelp, Smartphone, Sun, Moon, Monitor } from 'lucide-react-native';
 import client from '../../src/api/client';
 
 export default function SettingsScreen() {
   const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
   const user = useAuthStore((state) => state.user);
+  const { theme, setTheme } = useThemeStore();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
   const handleLogout = async () => {
     try {
-      // Call backend to invalidate token if applicable
       await client.post('/auth/logout');
     } catch (error) {
       console.log('Backend logout failed or not supported', error);
     } finally {
-      // Always cleanup local store
       await logout();
       router.replace('/');
     }
+  };
+
+  const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    await setTheme(newTheme);
   };
 
   const menuItems = [
@@ -48,17 +54,40 @@ export default function SettingsScreen() {
         </View>
 
         {/* Premium Profile Card */}
-        <View className={`p-5 rounded-3xl mb-10 flex-row items-center border ${isDark ? 'bg-darkcard border-darkcard' : 'bg-white border-gray-100 shadow-sm'}`}>
-          <View className={`w-14 h-14 rounded-full mr-4 items-center justify-center ${isDark ? 'bg-[#2C3442]' : 'bg-gray-100'}`}>
+        <View className={`p-5 rounded-3xl mb-8 flex-row items-center border ${isDark ? 'bg-darkcard border-darkcard' : 'bg-white border-gray-100 shadow-sm'}`}>
+          <View className={`w-14 h-14 rounded-full mr-4 items-center justify-center ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-100'}`}>
             <Text className={`text-xl font-inter-semibold ${isDark ? 'text-neon' : 'text-darkbase'}`}>{profileInitials}</Text>
           </View>
           <View className="flex-1">
             <Text className={`text-lg font-inter-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{profileName}</Text>
             <Text className={`text-sm font-inter ${isDark ? 'text-gray-400' : 'text-gray-500'} mt-0.5`}>{profileEmail}</Text>
           </View>
-          <TouchableOpacity className={`px-4 py-2 rounded-full ${isDark ? 'bg-[#2C3442]' : 'bg-gray-100'}`}>
+          <TouchableOpacity className={`px-4 py-2 rounded-full ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-100'}`}>
             <Text className={`text-xs font-inter-medium ${isDark ? 'text-white' : 'text-darkbase'}`}>Edit</Text>
           </TouchableOpacity>
+        </View>
+
+        {/* Appearance Switcher */}
+        <View className="mb-8">
+          <Text className={`text-xs font-inter-medium mb-3 uppercase tracking-widest ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Appearance</Text>
+          <View className={`p-1.5 rounded-2xl flex-row border ${isDark ? 'bg-darkcard border-darkcard' : 'bg-white border-gray-100 shadow-sm'}`}>
+            {(['light', 'dark', 'system'] as const).map((mode) => {
+              const isActive = theme === mode;
+              const Icon = mode === 'light' ? Sun : mode === 'dark' ? Moon : Monitor;
+              return (
+                <TouchableOpacity
+                  key={mode}
+                  onPress={() => handleThemeChange(mode)}
+                  className={`flex-1 flex-row items-center justify-center py-3 rounded-xl ${isActive ? (isDark ? 'bg-[#1A1A1A]' : 'bg-gray-100') : ''}`}
+                >
+                  <Icon size={18} color={isActive ? (isDark ? '#39FF14' : '#000000') : (isDark ? '#666' : '#999')} />
+                  <Text className={`ml-2 font-inter-medium text-xs capitalize ${isActive ? (isDark ? 'text-white' : 'text-gray-900') : (isDark ? 'text-gray-500' : 'text-gray-400')}`}>
+                    {mode}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
 
         {/* Options */}
@@ -71,8 +100,8 @@ export default function SettingsScreen() {
                 key={index} 
                 className={`py-4 px-5 flex-row items-center ${!isLast ? (isDark ? 'border-b border-darkcard' : 'border-b border-gray-100') : ''}`}
               >
-                <View className={`w-10 h-10 rounded-full items-center justify-center mr-4 ${isDark ? 'bg-[#252D3D]' : 'bg-gray-50'}`}>
-                  <Icon size={20} color={isDark ? '#39D391' : '#0F141E'} />
+                <View className={`w-10 h-10 rounded-full items-center justify-center mr-4 ${isDark ? 'bg-[#222222]' : 'bg-gray-50'}`}>
+                  <Icon size={20} color={isDark ? '#39FF14' : '#000000'} />
                 </View>
                 <Text className={`flex-1 font-inter-medium text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{item.label}</Text>
                 <ChevronRight size={20} color={isDark ? '#555555' : '#D1D5DB'} />

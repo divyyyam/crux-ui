@@ -19,11 +19,11 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
-    background: '#0F141E',
-    tint: '#39D391',
+    background: '#000000',
+    tint: '#39FF14',
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
-    tabIconSelected: '#39D391',
+    tabIconSelected: '#39FF14',
   },
 };
 

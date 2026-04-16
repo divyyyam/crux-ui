@@ -1,67 +1,105 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useColorScheme as useRNColorScheme, View } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { useColorScheme as useNWColorScheme } from 'nativewind';
 import '../global.css';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuthStore } from '../src/store/authStore';
+import { useThemeStore } from '../src/store/themeStore';
+import client from '../src/api/client';
 
-  import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
-  import * as SplashScreen from 'expo-splash-screen';
+import { useFonts, Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
+import * as SplashScreen from 'expo-splash-screen';
 
-  export default function RootLayout() {
-    const colorScheme = useColorScheme();
-    const { accessToken, initialize, isInitialized } = useAuthStore();
-    const segments = useSegments();
-    const router = useRouter();
+export default function RootLayout() {
+  const { setColorScheme } = useNWColorScheme();
+  const systemColorScheme = useRNColorScheme();
+  const { theme, initializeTheme } = useThemeStore();
+  const { accessToken, initialize, isInitialized, user, setUser, logout } = useAuthStore();
+  
+  const segments = useSegments();
+  const router = useRouter();
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
-    const [fontsLoaded] = useFonts({
-      Inter_400Regular,
-      Inter_500Medium,
-      Inter_600SemiBold,
-    });
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+  });
 
-    useEffect(() => {
-      initialize();
-    }, []);
+  // 1. Initialize Stores
+  useEffect(() => {
+    const init = async () => {
+      await Promise.all([initialize(), initializeTheme()]);
+      setIsAuthChecking(false);
+    };
+    init();
+  }, []);
 
-    useEffect(() => {
-      if (fontsLoaded) {
-        SplashScreen.hideAsync();
+  // 2. Sync Theme with NativeWind (Now immediate)
+  useEffect(() => {
+    const targetTheme = theme === 'system' ? systemColorScheme : theme;
+    setColorScheme(targetTheme === 'dark' ? 'dark' : 'light');
+  }, [theme, systemColorScheme]);
+
+  // 3. Hydrate User Profile (Breaks the authStore require cycle)
+  useEffect(() => {
+    if (!isInitialized || !accessToken || user) return;
+
+    const fetchUser = async () => {
+      try {
+        const response = await client.get('/auth/me');
+        if (response.data && response.data.success) {
+          setUser(response.data.data.user || response.data.data);
+        }
+      } catch (error) {
+        console.log('Failed to fetch user in _layout', error);
+        await logout();
       }
-    }, [fontsLoaded]);
+    };
+    fetchUser();
+  }, [accessToken, isInitialized, user]);
 
-    useEffect(() => {
-      if (!isInitialized) return;
-
-      const segs = segments as string[];
-      const inAuthGroup = segs[0] === '(auth)';
-      const isRoot = segs.length === 0 || segs[0] === 'index';
-
-      // If logged out and not in auth group or root (Get Started), force to Root
-      if (!accessToken && !inAuthGroup && !isRoot) {
-        router.replace('/');
-      } 
-      // If logged in and in auth group or root, force to Tabs
-      else if (accessToken && (inAuthGroup || isRoot)) {
-        router.replace('/(tabs)');
-      }
-    }, [accessToken, segments, isInitialized]);
-
-    if (!fontsLoaded || !isInitialized) {
-      return null;
+  // 4. Handle Splash Screen
+  useEffect(() => {
+    if (fontsLoaded && isInitialized && !isAuthChecking) {
+      SplashScreen.hideAsync();
     }
+  }, [fontsLoaded, isInitialized, isAuthChecking]);
+
+  // 5. Navigation Guard
+  useEffect(() => {
+    if (!isInitialized || isAuthChecking) return;
+
+    const segs = segments as string[];
+    const inAuthGroup = segs[0] === '(auth)';
+    const isRoot = segs.length === 0 || segs[0] === 'index';
+
+    if (!accessToken && !inAuthGroup && !isRoot) {
+      router.replace('/');
+    } else if (accessToken && (inAuthGroup || isRoot)) {
+      router.replace('/(tabs)');
+    }
+  }, [accessToken, segments, isInitialized, isAuthChecking]);
+
+  if (!fontsLoaded || !isInitialized || isAuthChecking) {
+    return null;
+  }
+
+  const activeTheme = theme === 'system' ? systemColorScheme : theme;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-      <StatusBar style="auto" />
+    <ThemeProvider value={activeTheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <View style={{ flex: 1 }}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </View>
+      <StatusBar style={activeTheme === 'dark' ? 'light' : 'dark'} />
     </ThemeProvider>
   );
 }
