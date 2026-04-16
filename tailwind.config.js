@@ -5,9 +5,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        neon: '#39FF14',
-        darkbase: '#000000',
-        darkcard: '#111111',
+        neon: '#39D391',
+        darkbase: '#0F141E',
+        darkcard: '#1A212E',
       },
       fontFamily: {
         inter: ['Inter_400Regular'],

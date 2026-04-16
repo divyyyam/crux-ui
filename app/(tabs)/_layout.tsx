@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { View, Platform, useColorScheme } from 'react-native';
-import { Home, User } from 'lucide-react-native';
+import { Home, User, Cpu } from 'lucide-react-native';
 import Svg, { Path, Circle } from 'react-native-svg';
 
 // AI Sparkle icon — a four-pointed star with accent dots
@@ -28,9 +28,9 @@ export default function TabLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: isDark ? '#000000' : '#ffffff',
+          backgroundColor: isDark ? '#0F141E' : '#ffffff',
           borderTopWidth: 1,
-          borderTopColor: isDark ? '#222222' : '#f4f4f5',
+          borderTopColor: isDark ? '#252D3D' : '#f4f4f5',
           height: Platform.OS === 'ios' ? 88 : 74,
           paddingTop: 12,
           paddingBottom: Platform.OS === 'ios' ? 24 : 12,
@@ -41,7 +41,15 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <Home size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
+            <Home size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="pairing"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Cpu size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
           ),
         }}
       />
@@ -49,10 +57,10 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-black') : (isDark ? 'bg-[#111111]' : 'bg-gray-100')}`}>
+            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39D391]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
               <AISparkleIcon
                 size={28}
-                color={focused ? (isDark ? '#000000' : '#ffffff') : '#71717A'}
+                color={focused ? (isDark ? '#0F141E' : '#ffffff') : '#71717A'}
               />
             </View>
           ),
@@ -62,7 +70,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
-            <User size={30} color={focused ? (isDark ? '#39FF14' : '#000000') : '#71717A'} />
+            <User size={30} color={focused ? (isDark ? '#39D391' : '#0F141E') : '#71717A'} />
           ),
         }}
       />

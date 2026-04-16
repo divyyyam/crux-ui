@@ -15,7 +15,7 @@ export default function OnboardingScreen() {
         {/* Top Spacer for Image placeholder later */}
         <View style={{ height: height * 0.4 }} className="w-full relative">
           {/* We will add an image here later as requested by the user */}
-          <View className={`absolute inset-0 rounded-3xl opacity-20 ${isDark ? 'bg-neon' : 'bg-gray-200'}`} />
+          <View className={`absolute inset-0 rounded-3xl opacity-20 ${isDark ? 'bg-neon' : 'bg-gray-100'}`} />
         </View>
 
         {/* Content Area */}
@@ -32,7 +32,7 @@ export default function OnboardingScreen() {
         <View className="w-full mt-auto">
           <TouchableOpacity 
             onPress={() => router.push('/(auth)/register')}
-            className={`w-full py-4 rounded-xl flex-row items-center justify-center ${isDark ? 'bg-neon' : 'bg-black'}`}
+            className={`w-full py-4 rounded-xl flex-row items-center justify-center ${isDark ? 'bg-neon' : 'bg-darkbase'}`}
             activeOpacity={0.8}
           >
             <Text className={`font-inter-semibold text-lg ${isDark ? 'text-black' : 'text-white'}`}>
@@ -45,7 +45,7 @@ export default function OnboardingScreen() {
               Already Have An Account?{' '}
             </Text>
             <Link href="/(auth)/login">
-              <Text className={`font-inter-semibold ${isDark ? 'text-neon' : 'text-black'}`}>
+              <Text className={`font-inter-semibold ${isDark ? 'text-neon' : 'text-darkbase'}`}>
                 Login
               </Text>
             </Link>

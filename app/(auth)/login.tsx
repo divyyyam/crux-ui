@@ -98,7 +98,7 @@ export default function LoginScreen() {
           <TouchableOpacity 
             onPress={handleLogin}
             disabled={isLoading}
-            className={`w-full py-4 rounded-xl flex-row items-center justify-center ${isDark ? 'bg-neon' : 'bg-black'} ${isLoading ? 'opacity-70' : ''}`}
+            className={`w-full py-4 rounded-xl flex-row items-center justify-center ${isDark ? 'bg-neon' : 'bg-darkbase'} ${isLoading ? 'opacity-70' : ''}`}
             activeOpacity={0.8}
           >
             <Text className={`font-inter-semibold text-lg ${isDark ? 'text-black' : 'text-white'}`}>
