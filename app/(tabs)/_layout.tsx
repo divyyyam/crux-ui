@@ -57,9 +57,9 @@ export default function TabLayout() {
         name="ai-chatbot"
         options={{
           tabBarIcon: ({ focused }) => (
-            <View className={`w-14 h-14 rounded-full items-center justify-center -mt-2 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
+          <View className={`w-12 h-12 rounded-full items-center justify-center -mt-1 ${focused ? (isDark ? 'bg-[#39FF14]' : 'bg-darkbase') : (isDark ? 'bg-darkcard' : 'bg-gray-100')}`}>
               <AISparkleIcon
-                size={28}
+                size={20}
                 color={focused ? (isDark ? '#000000' : '#ffffff') : '#71717A'}
               />
             </View>

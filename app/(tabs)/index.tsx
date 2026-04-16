@@ -109,7 +109,7 @@ export default function DashboardScreen() {
         {/* Action Button */}
         <TouchableOpacity 
           onPress={() => router.push('/(tabs)/ai-chatbot')}
-          className={`w-full py-4 rounded-xl flex-row items-center justify-center mb-24 ${isDark ? 'bg-neon' : 'bg-darkbase'}`}
+          className={`w-full py-4 rounded-xl flex-row items-center justify-center mb-6 ${isDark ? 'bg-neon' : 'bg-darkbase'}`}
           activeOpacity={0.8}
         >
           <Text className={`font-inter-semibold text-lg ${isDark ? 'text-black' : 'text-white'}`}>

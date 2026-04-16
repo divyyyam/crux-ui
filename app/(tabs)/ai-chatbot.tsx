@@ -40,7 +40,7 @@ export default function AiChatbotScreen() {
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-[#FAFAFA]'}`}>
       {/* Header */}
-      <View className={`px-6 py-4 border-b ${isDark ? 'border-darkcard' : 'border-gray-100'} flex-row items-center border-t-0`}>
+      <View className={`px-6 pt-12 pb-3 border-b ${isDark ? 'border-darkcard' : 'border-gray-100'} flex-row items-center border-t-0`}>
         <View className={`w-10 h-10 rounded-full items-center justify-center mr-3 ${isDark ? 'bg-darkcard' : 'bg-gray-100'}`}>
           <Sparkles size={16} color={isDark ? '#39FF14' : '#000000'} />
         </View>
