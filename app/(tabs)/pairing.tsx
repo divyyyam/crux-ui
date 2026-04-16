@@ -48,6 +48,70 @@ export default function PairingScreen() {
     }
   };
 
+  const handleUnpair = async () => {
+    if (!user?.pairedDeviceId) return;
+    
+    setIsLoading(true);
+    try {
+      const response = await client.delete(`/devices/${user.pairedDeviceId}`);
+      if (response.data && response.data.success) {
+        setUser({
+          ...user,
+          pairedDeviceId: null,
+          pairedDeviceName: null,
+        });
+        Alert.alert('Success', 'Device unpaired successfully!');
+      } else {
+        Alert.alert('Unpair Failed', response.data?.message || 'Could not unpair device.');
+      }
+    } catch (error: any) {
+      console.error('Unpairing error:', error);
+      Alert.alert('Unpair Error', error.response?.data?.message || 'Something went wrong.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (user?.pairedDeviceId) {
+    return (
+      <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>
+        <View className="flex-1 px-6 pt-12">
+          <View className="items-center mb-12">
+            <View className={`w-20 h-20 rounded-full items-center justify-center mb-6 ${isDark ? 'bg-darkcard border border-darkcard' : 'bg-[#39FF14]/10 border border-[#39FF14]/20'}`}>
+              <CheckCircle2 size={40} color={isDark ? '#39FF14' : '#16a34a'} />
+            </View>
+            <Text className={`text-3xl font-inter-semibold text-center ${isDark ? 'text-white' : 'text-gray-900'}`}>{user.pairedDeviceName || 'Active Vehicle'}</Text>
+            <Text className={`text-sm mt-3 font-inter leading-relaxed text-center px-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              Your Crux hardware module is securely connected.
+            </Text>
+          </View>
+
+          <View className={`border rounded-2xl p-6 items-center ${isDark ? 'border-gray-800 bg-darkcard' : 'border-gray-200 bg-gray-50'}`}>
+            <Cpu size={32} color={isDark ? '#fff' : '#000'} style={{ marginBottom: 16 }} />
+            <Text className={`text-xs font-inter-medium uppercase tracking-widest ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Hardware ID</Text>
+            <Text className={`text-xl font-inter-semibold mt-2 tracking-widest ${isDark ? 'text-[#39FF14]' : 'text-green-600'}`}>{user.pairedDeviceId}</Text>
+          </View>
+
+          <View className="mt-auto mb-10">
+            <TouchableOpacity 
+              onPress={handleUnpair}
+              disabled={isLoading}
+              className={`w-full py-5 rounded-xl flex-row items-center justify-center border ${isDark ? 'border-darkcard bg-transparent' : 'border-red-100 bg-transparent'} ${isLoading ? 'opacity-70' : ''}`}
+            >
+              {isLoading ? (
+                <ActivityIndicator color={isDark ? '#ff4444' : '#ef4444'} />
+              ) : (
+                <Text className={`font-inter-semibold text-lg ${isDark ? 'text-red-400' : 'text-red-500'}`}>
+                  Unlink Vehicle
+                </Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkbase' : 'bg-white'}`}>
       <View className="flex-1 px-6 pt-12">

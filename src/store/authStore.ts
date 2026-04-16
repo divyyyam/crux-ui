@@ -1,13 +1,23 @@
 import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  pairedDeviceId?: string | null;
+  pairedDeviceName?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
-  user: any | null;
+  user: User | null;
   isInitialized: boolean;
   setTokens: (accessToken: string, refreshToken: string) => Promise<void>;
-  setUser: (user: any) => void;
+  setUser: (user: User | null) => void;
   logout: () => Promise<void>;
   initialize: () => Promise<void>;
 }

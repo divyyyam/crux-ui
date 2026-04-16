@@ -27,9 +27,22 @@ export default function LoginScreen() {
       const response = await client.post('/auth/signin', { email, password });
       
       if (response.data && response.data.success) {
-        const { user, accessToken, refreshToken } = response.data.data;
+        const { user: basicUser, accessToken, refreshToken } = response.data.data;
         await setTokens(accessToken, refreshToken);
-        setUser(user);
+        
+        // Fetch full profile to get paired devices logic as returned by backend /me
+        try {
+          const meResponse = await client.get('/auth/me');
+          if (meResponse.data && meResponse.data.success) {
+            setUser(meResponse.data.data.user || meResponse.data.data);
+          } else {
+            setUser(basicUser);
+          }
+        } catch (err) {
+          console.warn("Failed to fetch full profile after login, falling back to basic user", err);
+          setUser(basicUser);
+        }
+        
         router.replace('/(tabs)');
       } else {
         Alert.alert('Login Failed', response.data?.message || 'Invalid credentials');

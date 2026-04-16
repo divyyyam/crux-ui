@@ -78,7 +78,7 @@ export default function SettingsScreen() {
         </View>
 
         {/* Premium Profile Card */}
-        <View className={`p-5 rounded-3xl mb-8 flex-row items-center border ${isDark ? 'bg-darkcard border-darkcard' : 'bg-white border-gray-100 shadow-sm'}`}>
+        <View className={`p-5 rounded-3xl mb-4 flex-row items-center border ${isDark ? 'bg-darkcard border-darkcard' : 'bg-white border-gray-100 shadow-sm'}`}>
           <View className={`w-14 h-14 rounded-full mr-4 items-center justify-center ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-100'}`}>
             <Text className={`text-xl font-inter-semibold ${isDark ? 'text-neon' : 'text-darkbase'}`}>{profileInitials}</Text>
           </View>
@@ -90,6 +90,24 @@ export default function SettingsScreen() {
             <Text className={`text-xs font-inter-medium ${isDark ? 'text-white' : 'text-darkbase'}`}>Edit</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Device Status */}
+        {user?.pairedDeviceId && (
+          <View className={`px-5 py-4 rounded-2xl mb-8 flex-row items-center border ${isDark ? 'bg-[#39FF14]/5 border-[#39FF14]/20' : 'bg-green-50 border-green-100'}`}>
+            <View className={`w-2 h-2 rounded-full bg-green-500 mr-3`} />
+            <Text className={`flex-1 text-sm font-inter-medium ${isDark ? 'text-[#39FF14]' : 'text-green-700'}`}>
+              Active: {user.pairedDeviceName || user.pairedDeviceId}
+            </Text>
+          </View>
+        )}
+        {!user?.pairedDeviceId && (
+          <View className={`px-5 py-4 rounded-2xl mb-8 flex-row items-center border ${isDark ? 'bg-darkcard border-gray-800' : 'bg-gray-50 border-gray-200'}`}>
+            <View className={`w-2 h-2 rounded-full bg-gray-500 mr-3`} />
+            <Text className={`flex-1 text-sm font-inter-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              No vehicle paired
+            </Text>
+          </View>
+        )}
 
         {/* Appearance Switcher */}
         <View className="mb-8">
@@ -135,6 +153,11 @@ export default function SettingsScreen() {
             return (
               <TouchableOpacity 
                 key={index} 
+                onPress={() => {
+                  if (item.label === 'Vehicle Pairing') {
+                    router.push('/(tabs)/pairing');
+                  }
+                }}
                 className={`py-4 px-5 flex-row items-center ${!isLast ? (isDark ? 'border-b border-darkcard' : 'border-b border-gray-100') : ''}`}
               >
                 <View className={`w-10 h-10 rounded-full items-center justify-center mr-4 ${isDark ? 'bg-[#1A1A1A]' : 'bg-gray-50'}`}>

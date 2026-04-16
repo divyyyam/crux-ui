@@ -28,9 +28,22 @@ export default function RegisterScreen() {
       const response = await client.post('/auth/signup', { name: username, email, password });
       
       if (response.data && response.data.success) {
-        const { user, accessToken, refreshToken } = response.data.data;
+        const { user: basicUser, accessToken, refreshToken } = response.data.data;
         await setTokens(accessToken, refreshToken);
-        setUser(user);
+        
+        // Fetch full profile to get paired devices logic as returned by backend /me
+        try {
+          const meResponse = await client.get('/auth/me');
+          if (meResponse.data && meResponse.data.success) {
+            setUser(meResponse.data.data.user || meResponse.data.data);
+          } else {
+            setUser(basicUser);
+          }
+        } catch (err) {
+          console.warn("Failed to fetch full profile after register, falling back to basic user", err);
+          setUser(basicUser);
+        }
+        
         router.replace('/(tabs)');
       } else {
         Alert.alert('Registration Failed', response.data?.message || 'Something went wrong');

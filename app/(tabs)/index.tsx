@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Dimensions, useColorScheme } from 'react-native';
 import { useAuthStore } from '../../src/store/authStore';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import client from '../../src/api/client';
 
 export default function DashboardScreen() {
+  const router = useRouter();
   const { height } = Dimensions.get('window');
   const size = height * 0.4;
   const colorScheme = useColorScheme();
@@ -17,10 +19,8 @@ export default function DashboardScreen() {
     try {
       const response = await client.get('/battery');
       if (response.data && response.data.success && response.data.data) {
-        // Assuming the data is an array of latest readings for all devices, or an object with deviceIds as keys
-        // We'll just grab the first available reading for the MVP
-        const readings = response.data.data;
-        const firstReading = Array.isArray(readings) ? readings[0] : Object.values(readings)[0];
+        const devices = response.data.data.devices;
+        const firstReading = devices && devices.length > 0 ? devices[0].latestMetric : null;
         
         if (firstReading) {
           setStats({
@@ -40,10 +40,10 @@ export default function DashboardScreen() {
   useEffect(() => {
     fetchDashboardData(); // Initial fetch
     
-    // Set up polling every 5 seconds
+    // Set up polling every 1 min 30 sec (90000 ms)
     const interval = setInterval(() => {
       fetchDashboardData();
-    }, 5000);
+    }, 90000);
 
     return () => clearInterval(interval);
   }, []);
@@ -105,11 +105,12 @@ export default function DashboardScreen() {
 
         {/* Action Button */}
         <TouchableOpacity 
+          onPress={() => router.push('/(tabs)/ai-chatbot')}
           className={`w-full py-4 rounded-xl flex-row items-center justify-center mb-24 ${isDark ? 'bg-neon' : 'bg-darkbase'}`}
           activeOpacity={0.8}
         >
           <Text className={`font-inter-semibold text-lg ${isDark ? 'text-black' : 'text-white'}`}>
-            Learn More
+            Get Insights
           </Text>
         </TouchableOpacity>
         
