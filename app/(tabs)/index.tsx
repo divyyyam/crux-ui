@@ -27,7 +27,7 @@ export default function DashboardScreen() {
             soc: firstReading.soc || 0,
             voltage: firstReading.voltage || 0,
             current: firstReading.current || 0,
-            power: (firstReading.power / 1000) || 0, // Assuming power is in Watts, display as kW
+            power: (firstReading.power) || 0, // Assuming power is in Watts, display as kW
           });
         }
       }
@@ -99,7 +99,7 @@ export default function DashboardScreen() {
           </View>
           <View className={`flex-1 p-5 rounded-3xl ml-2 ${isDark ? 'bg-[#B0EC70]/5 border border-[#B0EC70]/20' : 'bg-green-50 border border-green-100 shadow-sm'}`}>
             <Text className={`text-sm font-inter-medium mb-2 uppercase tracking-wider ${isDark ? 'text-[#B0EC70]' : 'text-green-700'}`}>Power</Text>
-            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-[#B0EC70]' : 'text-green-800'}`}>{stats ? `${stats.power.toFixed(1)} kW` : '--'}</Text>
+            <Text className={`text-4xl font-inter-semibold mt-1 ${isDark ? 'text-[#B0EC70]' : 'text-green-800'}`}>{stats ? `${stats.power.toFixed(1)} W` : '--'}</Text>
           </View>
         </View>
 
