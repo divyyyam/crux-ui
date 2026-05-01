@@ -27,7 +27,7 @@ export default function DashboardScreen() {
             soc: firstReading.soc || 0,
             voltage: firstReading.voltage || 0,
             current: firstReading.current || 0,
-            power: (firstReading.power) || 0, // Assuming power is in Watts, display as kW
+            power: (firstReading.power) || 0,  
           });
         }
       }
